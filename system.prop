@@ -14,5 +14,5 @@ config.disable_consumerir=true
 # Enable ADB authentication
 ro.adb.secure=1
 
-#Temp saturation fix
-persist.sys.sf.color_saturation=1.3
+# Temp saturation fix
+persist.sys.sf.color_saturation=1.1
