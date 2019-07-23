@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Show root directory -->
     <bool name="show_documents_root">true</bool>
+
+    <!-- Display job progress dialog box -->
     <bool name="feature_job_progress_dialog">true</bool>
+
+    <!-- Show device root by default -->
     <bool name="config_default_show_device_root">true</bool>
 </resources>

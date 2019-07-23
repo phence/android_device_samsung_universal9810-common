@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+    <!-- Allow recording of telephone calls -->
     <bool name="call_recording_enabled">true</bool>
+
+    <!-- Audio source for call recording -->
     <integer name="call_recording_audio_source">4</integer>
 </resources>
