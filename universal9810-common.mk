@@ -3,10 +3,6 @@
 
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
-ifneq ($(findstring lineage, $(TARGET_PRODUCT)),)
-DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay-lineage
-endif
-
 # Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
