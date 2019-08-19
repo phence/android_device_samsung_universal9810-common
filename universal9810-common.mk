@@ -87,6 +87,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     fingerprint.exynos5
 
+# Telephony
+PRODUCT_PACKAGES += \
+  telephony-ext
+PRODUCT_BOOT_JARS += \
+  telephony-ext
+
 # Vibrator
 PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.0-service.9810
