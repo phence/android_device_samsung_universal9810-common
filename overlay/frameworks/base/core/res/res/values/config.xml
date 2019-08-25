@@ -397,10 +397,6 @@
          in hardware. -->
     <bool name="config_setColorTransformAccelerated">true</bool>
 
-    <!-- If we allow automatic adjustment of screen brightness while dozing, how many times we want
-         to reduce it to preserve the battery. Value of 100% means no scaling. -->
-    <fraction name="config_screenAutoBrightnessDozeScaleFactor">100%</fraction>
-
     <!-- The default journal mode to use use when Write-Ahead Logging is not active.
          Choices are: OFF, DELETE, TRUNCATE, PERSIST and MEMORY.
          PERSIST may improve performance by reducing how often journal blocks are
