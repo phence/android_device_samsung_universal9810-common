@@ -4,14 +4,22 @@
  * SPDX-License-Identifier: Apache-2.0
 -->
 <resources>
-    <!-- Doze: does this device support STATE_DOZE and STATE_DOZE_SUSPEND?  -->
-    <bool name="doze_display_state_supported">true</bool>
+  <!--
+    Doze
+  -->
+  
+  <!-- Type of a sensor that provides a low-power estimate of the desired display
+    brightness, suitable to listen to while the device is asleep (e.g. during
+    always-on display) -->
+  <string name="doze_brightness_sensor_type" translatable="false">android.sensor.light</string>
 
-    <!-- Enable full alarm info in quick settings drawer -->
-    <bool name="quick_settings_show_full_alarm">true</bool>
+  <!-- Doze: does this device support STATE_DOZE and STATE_DOZE_SUSPEND?  -->
+  <bool name="doze_display_state_supported">true</bool>
 
-    <!-- Type of a sensor that provides a low-power estimate of the desired display
-         brightness, suitable to listen to while the device is asleep (e.g. during
-         always-on display) -->
-    <string name="doze_brightness_sensor_type" translatable="false">android.sensor.light</string>
+  <!--
+    User Interface
+  -->
+
+  <!-- Enable full alarm info in quick settings drawer -->
+  <bool name="quick_settings_show_full_alarm">true</bool>
 </resources>
