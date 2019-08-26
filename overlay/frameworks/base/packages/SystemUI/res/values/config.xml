@@ -9,4 +9,9 @@
 
     <!-- Enable full alarm info in quick settings drawer -->
     <bool name="quick_settings_show_full_alarm">true</bool>
+
+    <!-- Type of a sensor that provides a low-power estimate of the desired display
+         brightness, suitable to listen to while the device is asleep (e.g. during
+         always-on display) -->
+    <string name="doze_brightness_sensor_type" translatable="false">android.sensor.light</string>
 </resources>
