@@ -4,9 +4,17 @@
  * SPDX-License-Identifier: Apache-2.0
 -->
 <resources>
-    <!-- Radius of rounded display corners -->
-    <dimen name="rounded_corner_radius">4dp</dimen>
+  <!--
+    User Interface
+  -->
 
-    <!-- Padding of content near rounded corners -->
-    <dimen name="rounded_corner_content_padding">16dp</dimen>
+  <!-- Padding of content near rounded corners -->
+  <dimen name="rounded_corner_content_padding">8dp</dimen>
+
+  <!-- Radius of rounded display corners -->
+  <dimen name="rounded_corner_radius">4dp</dimen>
+
+  <!-- Padding of status bar -->
+  <dimen name="status_bar_padding_start">12dp</dimen>
+  <dimen name="status_bar_padding_end">12dp</dimen>
 </resources>

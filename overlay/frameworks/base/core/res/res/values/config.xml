@@ -4,373 +4,444 @@
  * SPDX-License-Identifier: Apache-2.0
 -->
 <resources>
-    <!-- Whether a software navigation bar should be shown. NOTE: in the future this may be
-         autodetected from the Configuration. -->
-    <bool name="config_showNavigationBar">true</bool>
+  <!--
+    Audio
+  -->
 
-    <!-- Array of light sensor LUX values to define our levels for auto backlight brightness support.
-         The N entries of this array define N  1 zones as follows:
-         Zone 0:        0 <= LUX < array[0]
-         Zone 1:        array[0] <= LUX < array[1]
-         ...
-         Zone N:        array[N - 1] <= LUX < array[N]
-         Zone N + 1     array[N] <= LUX < infinity
-         Must be overridden in platform specific overlays -->
-    <integer-array name="config_autoBrightnessLevels">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>10</item>
-        <item>30</item>
-        <item>50</item>
-        <item>100</item>
-        <item>200</item>
-        <item>500</item>
-        <item>1000</item>
-        <item>2000</item>
-        <item>2999</item>
-        <item>3000</item>
-        <item>3999</item>
-        <item>4000</item>
-        <item>4999</item>
-        <item>5000</item>
-        <item>9999</item>
-        <item>10000</item>
-        <item>19999</item>
-        <item>20000</item>
-        <item>29999</item>
-        <item>30000</item>
-        <item>39999</item>
-        <item>40000</item>
-        <item>49999</item>
-        <item>50000</item>
-        <item>59999</item>
-        <item>60000</item>
-        <item>79999</item>
-        <item>80000</item>
-        <item>99999</item>
-        <item>100000</item>
-    </integer-array>
+  <!-- Whether the Unprocessed audio source supports the required frequency range and level -->
+  <bool name="config_supportAudioSourceUnprocessed">true</bool>
 
-    <!-- Array of output values for LCD backlight corresponding to the LUX values
-         in the config_autoBrightnessLevels array.  This array should have size one greater
-         than the size of the config_autoBrightnessLevels array.
-         This must be overridden in platform specific overlays -->
-    <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>22</item>
-        <item>25</item>
-        <item>28</item>
-        <item>33</item>
-        <item>35</item>
-        <item>37</item>
-        <item>49</item>
-        <item>64</item>
-        <item>64</item>
-        <item>65</item>
-        <item>67</item>
-        <item>72</item>
-        <item>98</item>
-        <item>145</item>
-        <item>145</item>
-        <item>163</item>
-        <item>163</item>
-        <item>172</item>
-        <item>172</item>
-        <item>181</item>
-        <item>181</item>
-        <item>191</item>
-        <item>191</item>
-        <item>200</item>
-        <item>200</item>
-        <item>209</item>
-        <item>209</item>
-        <item>218</item>
-        <item>218</item>
-        <item>227</item>
-        <item>227</item>
-        <item>236</item>
-        <item>236</item>
-        <item>245</item>
-        <item>245</item>
-        <item>254</item>
-    </integer-array>
+  <!-- Setting this true forces the headset jack switches to use the/dev/input/event subsystem
+    rather than the uevent framework. -->
+  <bool name="config_useDevInputEventForAudioJack">true</bool>
 
-    <!-- Flag indicating whether the we should enable the automatic brightness in Settings.
-         Software implementation will be used if config_hardware_auto_brightness_available is not set -->
-    <bool name="config_automatic_brightness_available">true</bool>
+  <!--
+    Buttons
+  -->
 
-    <!-- Stability requirements in milliseconds for accepting a new brightness level.  This is used
-         for debouncing the light sensor.  Different constants are used to debounce the light sensor
-         when adapting to brighter or darker environments.  This parameter controls how quickly
-         brightness changes occur in response to an observed change in light level that exceeds the
-         hysteresis threshold. -->
-    <integer name="config_autoBrightnessBrighteningLightDebounce">2000</integer>
-    <integer name="config_autoBrightnessDarkeningLightDebounce">6000</integer>
+  <!-- Button backlight brightness -->
+  <integer name="config_buttonBrightnessSettingDefault">0</integer>
 
-    <!-- Minimum screen brightness setting allowed by the power manager.
-         The user is forbidden from setting the brightness below this level. -->
-    <integer name="config_screenBrightnessSettingMinimum">0</integer>
+  <!--
+    Cellular
+  -->
 
-    <!-- Maximum screen brightness allowed by the power manager.
-         The user is forbidden from setting the brightness above this level. -->
-    <integer name="config_screenBrightnessSettingMaximum">254</integer>
+  <!-- Is the device capable of hot swapping an UICC Card -->
+  <bool name="config_hotswapCapable">true</bool>
 
-    <!-- Default screen brightness setting.
-         Must be in the range specified by minimum and maximum. -->
-    <integer name="config_screenBrightnessSettingDefault">124</integer>
+  <!-- Configure mobile tcp buffer sizes in the form:
+    rat-name:rmem_min,rmem_def,rmem_max,wmem_min,wmem_def,wmem_max
+    If no value is found for the rat-name in use, the system default will be applied. -->
+  <string-array name="config_mobile_tcp_buffers">
+    <item>lte:1048576,3145728,4194304,524288,1572864,2097152</item>
+  </string-array>
 
-    <!-- Screen brightness used to dim the screen when the user activity
-         timeout expires.  May be less than the minimum allowed brightness setting
-         that can be set by the user. -->
-    <integer name="config_screenBrightnessDim">59</integer>
+  <!-- Set to true to add links to Cell Broadcast app from Settings and MMS app. -->
+  <bool name="config_cellBroadcastAppLinks">true</bool>
 
-    <!-- Button backlight brightness -->
-    <integer name="config_buttonBrightnessSettingDefault">0</integer>
+  <!-- The RadioAccessFamilies supported by the device.
+    Empty is viewed as "all".  Only used on devices which
+    don't support RIL_REQUEST_GET_RADIO_CAPABILITY
+    format is UMTS|LTE|... -->
+  <string name="config_radio_access_family">GSM|WCDMA|LTE</string>
 
-    <!-- Is the device capable of hot swapping an UICC Card -->
-    <bool name="config_hotswapCapable">true</bool>
+  <!--
+    Display
+  -->
 
-    <!-- List of regexpressions describing the interface (if any) that represent tetherable
-         USB interfaces.  If the device doesn't want to support tething over USB this should
-         be empty.  An example would be "usb.*" -->
-    <string-array translatable="false" name="config_tether_usb_regexs">
-        <item>"usb\\d"</item>
-        <item>"rndis\\d"</item>
-    </string-array>
+  <!-- If this is true, the screen will fade off. -->
+  <bool name="config_animateScreenLights">true</bool>
 
-    <!-- List of regexpressions describing the interface (if any) that represent tetherable
-         Wifi interfaces.  If the device doesn't want to support tethering over Wifi this
-         should be empty.  An example would be "softap.*" -->
-    <string-array translatable="false" name="config_tether_wifi_regexs">
-        <item>"wlan0"</item>
-        <item>"softap.*"</item>
-    </string-array>
+  <!-- Array of light sensor LUX values to define our levels for auto backlight brightness support.
+    The N entries of this array define N  1 zones as follows:
+    Zone 0: 0 <= LUX < array[0]
+    Zone 1: array[0] <= LUX < array[1]
+    ...
+    Zone N: array[N - 1] <= LUX < array[N]
+    Zone N + 1 array[N] <= LUX < infinity
+    Must be overridden in platform specific overlays -->
+  <integer-array name="config_autoBrightnessLevels">
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+    <item>5</item>
+    <item>10</item>
+    <item>30</item>
+    <item>50</item>
+    <item>100</item>
+    <item>200</item>
+    <item>500</item>
+    <item>1000</item>
+    <item>2000</item>
+    <item>2999</item>
+    <item>3000</item>
+    <item>3999</item>
+    <item>4000</item>
+    <item>4999</item>
+    <item>5000</item>
+    <item>9999</item>
+    <item>10000</item>
+    <item>19999</item>
+    <item>20000</item>
+    <item>29999</item>
+    <item>30000</item>
+    <item>39999</item>
+    <item>40000</item>
+    <item>49999</item>
+    <item>50000</item>
+    <item>59999</item>
+    <item>60000</item>
+    <item>79999</item>
+    <item>80000</item>
+    <item>99999</item>
+    <item>100000</item>
+  </integer-array>
 
-    <!-- List of regexpressions describing the interface (if any) that represent tetherable
-         bluetooth interfaces.  If the device doesn't want to support tethering over bluetooth this
-         should be empty. -->
-    <string-array translatable="false" name="config_tether_bluetooth_regexs">
-        <item>"bt-pan"</item>
-    </string-array>
+  <!-- Array of output values for LCD backlight corresponding to the LUX values
+    in the config_autoBrightnessLevels array.  This array should have size one greater
+    than the size of the config_autoBrightnessLevels array.
+    This must be overridden in platform specific overlays -->
+  <integer-array name="config_autoBrightnessLcdBacklightValues">
+    <item>22</item>
+    <item>25</item>
+    <item>28</item>
+    <item>33</item>
+    <item>35</item>
+    <item>37</item>
+    <item>49</item>
+    <item>64</item>
+    <item>64</item>
+    <item>65</item>
+    <item>67</item>
+    <item>72</item>
+    <item>98</item>
+    <item>145</item>
+    <item>145</item>
+    <item>163</item>
+    <item>163</item>
+    <item>172</item>
+    <item>172</item>
+    <item>181</item>
+    <item>181</item>
+    <item>191</item>
+    <item>191</item>
+    <item>200</item>
+    <item>200</item>
+    <item>209</item>
+    <item>209</item>
+    <item>218</item>
+    <item>218</item>
+    <item>227</item>
+    <item>227</item>
+    <item>236</item>
+    <item>236</item>
+    <item>245</item>
+    <item>245</item>
+    <item>254</item>
+  </integer-array>
 
-    <!-- Array of allowable ConnectivityManager network types for tethering.
-         Common options are [1, 4] for TYPE_WIFI and TYPE_MOBILE_DUN or
-         [0,1,5,7] for TYPE_MOBILE, TYPE_WIFI, TYPE_MOBILE_HIPRI and TYPE_BLUETOOTH -->
-    <integer-array translatable="false" name="config_tether_upstream_types">
-        <item>0</item>
-        <item>1</item>
-        <item>5</item>
-        <item>7</item>
-    </integer-array>
+  <!-- Boolean indicating whether the HWC setColorTransform function can be performed efficiently
+    in hardware. -->
+  <bool name="config_setColorTransformAccelerated">true</bool>
 
-    <!-- Configure mobile tcp buffer sizes in the form:
-         rat-name:rmem_min,rmem_def,rmem_max,wmem_min,wmem_def,wmem_max
-         If no value is found for the rat-name in use, the system default will be applied. -->
-    <string-array name="config_mobile_tcp_buffers">
-        <item>lte:1048576,3145728,4194304,524288,1572864,2097152</item>
-    </string-array>
+  <!-- Flag indicating whether the we should enable the automatic brightness in Settings.
+    Software implementation will be used if config_hardware_auto_brightness_available is not set -->
+  <bool name="config_automatic_brightness_available">true</bool>
 
-    <!-- Boolean indicating whether the wifi chipset has dual frequency band support -->
-    <bool translatable="false" name="config_wifi_dual_band_support">true</bool>
+  <!-- Stability requirements in milliseconds for accepting a new brightness level.  This is used
+    for debouncing the light sensor.  Different constants are used to debounce the light sensor
+    when adapting to brighter or darker environments.  This parameter controls how quickly
+    brightness changes occur in response to an observed change in light level that exceeds the
+    hysteresis threshold. -->
+  <integer name="config_autoBrightnessBrighteningLightDebounce">2000</integer>
+  <integer name="config_autoBrightnessDarkeningLightDebounce">6000</integer>
 
-    <!-- Wifi driver supports batched scan -->
-    <bool translatable="false" name="config_wifi_batched_scan_supported">true</bool>
+  <!-- Does the device support smart pixels? -->
+  <bool name="config_enableSmartPixels">true</bool>
 
-    <!-- Boolean indicating whether the wifi chipset has background scan support -->
-    <bool translatable="false" name="config_wifi_background_scan_support">true</bool>
+  <!-- Enable Night display, which requires HWC 2.0. -->
+  <bool name="config_nightDisplayAvailable">true</bool>
 
-    <!-- Whether WiFi display is supported by this device.
-         There are many prerequisites for this feature to work correctly.
-         Here are a few of them:
-         * The WiFi radio must support WiFi P2P.
-         * The WiFi radio must support concurrent connections to the WiFi display and
-           to an access point.
-         * The Audio Flinger audio_policy.conf file must specify a rule for the "r_submix"
-           remote submix module.  This module is used to record and stream system
-           audio output to the WiFi display encoder in the media server.
-         * The remote submix module "audio.r_submix.default" must be installed on the device.
-         * The device must be provisioned with HDCP keys (for protected content).
-    -->
-    <bool name="config_enableWifiDisplay">true</bool>
+  <!-- Screen off delay -->
+  <integer name="config_screen_off_delay">0</integer>
 
-    <!-- Idle Receive current for wifi radio. 0 by default-->
-    <integer name="config_wifi_idle_receive_cur_ma">1</integer>
+  <!-- Minimum screen brightness setting allowed by the power manager.
+    The user is forbidden from setting the brightness below this level. -->
+  <integer name="config_screenBrightnessSettingMinimum">0</integer>
 
-    <!-- Rx current for wifi radio. 0 by default-->
-    <integer name="config_wifi_active_rx_cur_ma">65</integer>
+  <!-- Maximum screen brightness allowed by the power manager.
+    The user is forbidden from setting the brightness above this level. -->
+  <integer name="config_screenBrightnessSettingMaximum">254</integer>
 
-    <!-- Tx current for wifi radio. 0 by default-->
-    <integer name="config_wifi_tx_cur_ma">265</integer>
+  <!-- Default screen brightness setting.
+    Must be in the range specified by minimum and maximum. -->
+  <integer name="config_screenBrightnessSettingDefault">124</integer>
 
-    <!-- Operating volatage for wifi radio. 0 by default-->
-    <integer name="config_wifi_operating_voltage_mv">3600</integer>
+  <!-- Screen brightness used to dim the screen when the user activity
+    timeout expires.  May be less than the minimum allowed brightness setting
+    that can be set by the user. -->
+  <integer name="config_screenBrightnessDim">59</integer>
 
-    <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
-    <bool name="config_intrusiveNotificationLed">true</bool>
+  <!--
+    Doze
+  -->
 
-    <!-- Enable doze mode ComponentName of a dream to show whenever the system would otherwise have
-         gone to sleep. -->
-    <string name="config_dozeComponent">com.android.systemui/com.android.systemui.doze.DozeService</string>
+  <!-- Allow automatic adjusting of the screen brightness while dozing
+    in low power state. -->
+  <bool name="config_allowAutoBrightnessWhileDozing">true</bool>
 
-    <!-- Set this to true to enable the platform's auto-power-save modes like doze and
-         app standby.  These are not enabled by default because they require a standard
-         cloud-to-device messaging service for apps to interact correctly with the modes
-         (such as to be able to deliver an instant message to the device even when it is
-         dozing).  This should be enabled if you have such services and expect apps to
-         correctly use them when installed on your device.  Otherwise, keep this disabled
-         so that applications can still use their own mechanisms. -->
-    <bool name="config_enableAutoPowerModes">true</bool>
+  <!-- If we allow automatic adjustment of screen brightness while dozing, how many times we want
+    to reduce it to preserve the battery. Value of 100% means no scaling. -->
+  <fraction name="config_screenAutoBrightnessDozeScaleFactor">100%</fraction>
 
-    <!-- If true, the doze component is not started until after the screen has been turned off
-          and the screen off animation has been performed. -->
-    <bool name="config_dozeAfterScreenOffByDefault">true</bool>
+  <!-- Indicate whether to allow the device to suspend when the screen is off
+    due to the proximity sensor.  This resource should only be set to true
+    if the sensor HAL correctly handles the proximity sensor as a wake-up source.
+    Otherwise, the device may fail to wake out of suspend reliably.
+    The default is false. -->
+  <bool name="config_suspendWhenScreenOffDueToProximity">true</bool>
 
-    <!-- Control whether the always on display mode is available. This should only be enabled on
-         devices where the display has be tuned to be power efficient in DOZE and/or DOZE_SUSPEND
-         states. -->
-    <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool>
+  <!-- Enable doze mode ComponentName of a dream to show whenever the system would otherwise have
+    gone to sleep. -->
+  <string name="config_dozeComponent">com.android.systemui/com.android.systemui.doze.DozeService</string>
 
-    <!-- Whether the display blanks itself when transitioning from a doze to a non-doze state -->
-    <bool name="config_displayBlanksAfterDoze">true</bool>
+  <!-- Set this to true to enable the platform's auto-power-save modes like doze and
+    app standby.  These are not enabled by default because they require a standard
+    cloud-to-device messaging service for apps to interact correctly with the modes
+    (such as to be able to deliver an instant message to the device even when it is
+    dozing).  This should be enabled if you have such services and expect apps to
+    correctly use them when installed on your device.  Otherwise, keep this disabled
+    so that applications can still use their own mechanisms. -->
+  <bool name="config_enableAutoPowerModes">true</bool>
 
-    <!-- Power Management: Specifies whether to decouple the auto-suspend state of the
-         device from the display on/off state.
-         When false, autosuspend_disable() will be called before the display is turned on
-         and autosuspend_enable() will be called after the display is turned off.
-         This mode provides best compatibility for devices using legacy power management
-         features such as early suspend / late resume.
-         When true, autosuspend_display() and autosuspend_enable() will be called
-         independently of whether the display is being turned on or off.  This mode
-         enables the power manager to suspend the application processor while the
-         display is on.
-         This resource should be set to "true" when a doze component has been specified
-         to maximize power savings but not all devices support it.
-         Refer to autosuspend.h for details.
-    -->
-    <bool name="config_powerDecoupleAutoSuspendModeFromDisplay">true</bool>
+  <!-- If true, the doze component is not started until after the screen has been turned off
+    and the screen off animation has been performed. -->
+  <bool name="config_dozeAfterScreenOffByDefault">true</bool>
 
-    <!-- Power Management: Specifies whether to decouple the interactive state of the
-         device from the display on/off state.
-         When false, setInteractive(..., true) will be called before the display is turned on
-         and setInteractive(..., false) will be called after the display is turned off.
-         This mode provides best compatibility for devices that expect the interactive
-         state to be tied to the display state.
-         When true, setInteractive(...) will be called independently of whether the display
-         is being turned on or off.  This mode enables the power manager to reduce
-         clocks and disable the touch controller while the display is on.
-         This resource should be set to "true" when a doze component has been specified
-         to maximize power savings but not all devices support it.
-         Refer to power.h for details.
-    -->
-    <bool name="config_powerDecoupleInteractiveModeFromDisplay">true</bool>
+  <!-- Control whether the always on display mode is available. This should only be enabled on
+    devices where the display has be tuned to be power efficient in DOZE and/or DOZE_SUSPEND
+    states. -->
+  <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool>
 
-    <!-- If true, the display will be shifted around in ambient mode. -->
-    <bool name="config_enableBurnInProtection">true</bool>
+  <!-- Whether the display blanks itself when transitioning from a doze to a non-doze state -->
+  <bool name="config_displayBlanksAfterDoze">true</bool>
 
-    <!-- Screen brightness when dozing. -->
-    <integer name="config_screenBrightnessDoze">22</integer>
+  <!-- Power Management: Specifies whether to decouple the auto-suspend state of the
+    device from the display on/off state.
+    When false, autosuspend_disable() will be called before the display is turned on
+    and autosuspend_enable() will be called after the display is turned off.
+    This mode provides best compatibility for devices using legacy power management
+    features such as early suspend / late resume.
+    When true, autosuspend_display() and autosuspend_enable() will be called
+    independently of whether the display is being turned on or off.  This mode
+    enables the power manager to suspend the application processor while the
+    display is on.
+    This resource should be set to "true" when a doze component has been specified
+    to maximize power savings but not all devices support it.
+    Refer to autosuspend.h for details.
+  -->
+  <bool name="config_powerDecoupleAutoSuspendModeFromDisplay">true</bool>
 
-    <!-- The device supports freeform window management. Windows have title bars and can be moved
-         and resized. If you set this to true, you also need to add
-         PackageManager.FEATURE_FREEFORM_WINDOW_MANAGEMENT feature to your device specification.
-         The duplication is necessary, because this information is used before the features are
-         available to the system.-->
-    <bool name="config_freeformWindowManagement">true</bool>
+  <!-- Power Management: Specifies whether to decouple the interactive state of the
+    device from the display on/off state.
+    When false, setInteractive(..., true) will be called before the display is turned on
+    and setInteractive(..., false) will be called after the display is turned off.
+    This mode provides best compatibility for devices that expect the interactive
+    state to be tied to the display state.
+    When true, setInteractive(...) will be called independently of whether the display
+    is being turned on or off.  This mode enables the power manager to reduce
+    clocks and disable the touch controller while the display is on.
+    This resource should be set to "true" when a doze component has been specified
+    to maximize power savings but not all devices support it.
+    Refer to power.h for details.
+  -->
+  <bool name="config_powerDecoupleInteractiveModeFromDisplay">true</bool>
 
-    <!-- Setting this true forces the headset jack switches to use the/dev/input/event subsystem
-         rather than the uevent framework. -->
-    <bool name="config_useDevInputEventForAudioJack">true</bool>
+  <!-- If true, the display will be shifted around in ambient mode. -->
+  <bool name="config_enableBurnInProtection">true</bool>
+
+  <!--
+    File System
+  -->
+
+  <!-- The default journal mode to use use when Write-Ahead Logging is not active.
+    Choices are: OFF, DELETE, TRUNCATE, PERSIST and MEMORY.
+    PERSIST may improve performance by reducing how often journal blocks are
+    reallocated (compared to truncation) resulting in better data block locality
+    and less churn of the storage media. -->
+  <string name="db_default_journal_mode" translatable="false">MEMORY</string>
+
+  <!-- The database synchronization mode when using the default journal mode.
+    FULL is safest and preserves durability at the cost of extra fsyncs.
+    NORMAL also preserves durability in non-WAL modes and uses checksums to ensure
+    integrity although there is a small chance that an error might go unnoticed.
+    Choices are: FULL, NORMAL, OFF. -->
+  <string name="db_default_sync_mode" translatable="false">OFF</string>
+
+  <!-- The database synchronization mode when using Write-Ahead Logging.
+    FULL is safest and preserves durability at the cost of extra fsyncs.
+    NORMAL sacrifices durability in WAL mode because syncs are only performed before
+    and after checkpoint operations.  If checkpoints are infrequent and power loss
+    occurs, then committed transactions could be lost and applications might break.
+    Choices are: FULL, NORMAL, OFF. -->
+  <string name="db_wal_sync_mode" translatable="false">OFF</string>
+
+  <!--
+    Fingerprints
+  -->
+
+  <!-- For performance and storage reasons, limit the number of fingerprints per user -->
+  <integer name="config_fingerprintMaxTemplatesPerUser">4</integer>
+
+  <!--
+    LEDs
+  -->
+
+  <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
+  <bool name="config_intrusiveNotificationLed">true</bool>
+
+  <!--
+    System
+  -->
+
+  <!-- Whether to enable smart clock feature -->
+  <bool name="config_enableSmartClock">true</bool>
+
+  <!-- Boolean indicating whether a vendor mismatch should warning should be displayed -->
+  <bool name="config_show_vendor_mismatch_message">false</bool>
 
     <!-- Default files to pin via Pinner Service -->
-    <string-array translatable="false" name="config_defaultPinnerServiceFiles">
-        <item>"/system/framework/arm64/boot-framework.oat"</item>
-        <item>"/system/framework/boot-framework.vdex"</item>
-        <item>"/system/framework/oat/arm64/services.odex"</item>
-        <item>"/system/framework/oat/arm64/services.vdex"</item>
-        <item>"/system/framework/arm64/boot.oat"</item>
-        <item>"/system/framework/boot.vdex"</item>
-        <item>"/system/framework/arm64/boot-core-libart.oat"</item>
-        <item>"/system/framework/boot-core-libart.vdex"</item>
-    </string-array>
+  <string-array translatable="false" name="config_defaultPinnerServiceFiles">
+    <item>"/system/framework/arm64/boot-framework.oat"</item>
+    <item>"/system/framework/boot-framework.vdex"</item>
+    <item>"/system/framework/oat/arm64/services.odex"</item>
+    <item>"/system/framework/oat/arm64/services.vdex"</item>
+    <item>"/system/framework/arm64/boot.oat"</item>
+    <item>"/system/framework/boot.vdex"</item>
+    <item>"/system/framework/arm64/boot-core-libart.oat"</item>
+    <item>"/system/framework/boot-core-libart.vdex"</item>
+  </string-array>
 
-    <!-- True if camera app should be pinned via Pinner Service -->
-    <bool name="config_pinnerCameraApp">true</bool>
+  <!-- True if camera app should be pinned via Pinner Service -->
+  <bool name="config_pinnerCameraApp">true</bool>
 
-    <!-- If this is true, device supports Sustained Performance Mode. -->
-    <bool name="config_sustainedPerformanceModeSupported">true</bool>
+  <!-- If this is true, device supports Sustained Performance Mode. -->
+  <bool name="config_sustainedPerformanceModeSupported">true</bool>
 
-    <!-- Set to true to add links to Cell Broadcast app from Settings and MMS app. -->
-    <bool name="config_cellBroadcastAppLinks">true</bool>
+  <!--
+    Tethering
+  -->
 
-    <!-- The RadioAccessFamilies supported by the device.
-         Empty is viewed as "all".  Only used on devices which
-         don't support RIL_REQUEST_GET_RADIO_CAPABILITY
-         format is UMTS|LTE|... -->
-    <string name="config_radio_access_family">GSM|WCDMA|LTE</string>
+  <!-- List of regexpressions describing the interface (if any) that represent tetherable
+    USB interfaces.  If the device doesn't want to support tething over USB this should
+    be empty.  An example would be "usb.*" -->
+  <string-array translatable="false" name="config_tether_usb_regexs">
+    <item>"usb\\d"</item>
+    <item>"rndis\\d"</item>
+  </string-array>
 
-    <!-- If this is true, the screen will fade off. -->
-    <bool name="config_animateScreenLights">true</bool>
+  <!-- List of regexpressions describing the interface (if any) that represent tetherable
+    Wifi interfaces.  If the device doesn't want to support tethering over Wifi this
+    should be empty.  An example would be "softap.*" -->
+  <string-array translatable="false" name="config_tether_wifi_regexs">
+    <item>"wlan0"</item>
+    <item>"softap.*"</item>
+  </string-array>
 
-    <!-- For performance and storage reasons, limit the number of fingerprints per user -->
-    <integer name="config_fingerprintMaxTemplatesPerUser">4</integer>
+  <!-- Enable ACS (auto channel selection) for Wifi hotspot (SAP) -->
+  <bool translatable="false" name="config_wifi_softap_acs_supported">true</bool>
 
-    <!-- Vibrator pattern for feedback about a long screen/key press -->
-    <integer-array name="config_longPressVibePattern">
-        <item>7</item>
-    </integer-array>
+  <!-- Enable 802.11ac for Wifi hotspot (SAP) -->
+  <bool translatable="false" name="config_wifi_softap_ieee80211ac_supported">true</bool>
 
-    <!-- Vibrator pattern for feedback about touching a virtual key -->
-    <integer-array name="config_virtualKeyVibePattern">
-        <item>7</item>
-    </integer-array>
+  <!-- List of regexpressions describing the interface (if any) that represent tetherable
+    bluetooth interfaces.  If the device doesn't want to support tethering over bluetooth this
+    should be empty. -->
+  <string-array translatable="false" name="config_tether_bluetooth_regexs">
+    <item>"bt-pan"</item>
+  </string-array>
 
-    <!-- Vibrator pattern for a very short but reliable vibration for soft keyboard tap -->
-    <integer-array name="config_keyboardTapVibePattern">
-        <item>7</item>
-    </integer-array>
+  <!-- Array of allowable ConnectivityManager network types for tethering.
+    Common options are [1, 4] for TYPE_WIFI and TYPE_MOBILE_DUN or
+    [0,1,5,7] for TYPE_MOBILE, TYPE_WIFI, TYPE_MOBILE_HIPRI and TYPE_BLUETOOTH -->
+  <integer-array translatable="false" name="config_tether_upstream_types">
+    <item>0</item>
+    <item>1</item>
+    <item>5</item>
+    <item>7</item>
+  </integer-array>
 
-    <!-- Boolean indicating whether the HWC setColorTransform function can be performed efficiently
-         in hardware. -->
-    <bool name="config_setColorTransformAccelerated">true</bool>
+  <!--
+   User Interface
+  -->
 
-    <!-- Allow automatic adjusting of the screen brightness while dozing in low power state. -->
-    <bool name="config_allowAutoBrightnessWhileDozing">true</bool>
+  <!-- The device supports freeform window management. Windows have title bars and can be moved
+    and resized. If you set this to true, you also need to add
+    PackageManager.FEATURE_FREEFORM_WINDOW_MANAGEMENT feature to your device specification.
+    The duplication is necessary, because this information is used before the features are
+    available to the system.-->
+  <bool name="config_freeformWindowManagement">true</bool>
 
-    <!-- If we allow automatic adjustment of screen brightness while dozing, how many times we want
-         to reduce it to preserve the battery. Value of 100% means no scaling. -->
-    <fraction name="config_screenAutoBrightnessDozeScaleFactor">40%</fraction>
+  <!-- Whether a software navigation bar should be shown. NOTE: in the future this may be
+    autodetected from the Configuration. -->
+  <bool name="config_showNavigationBar">true</bool>
 
-    <!-- The default journal mode to use use when Write-Ahead Logging is not active.
-         Choices are: OFF, DELETE, TRUNCATE, PERSIST and MEMORY.
-         PERSIST may improve performance by reducing how often journal blocks are
-         reallocated (compared to truncation) resulting in better data block locality
-         and less churn of the storage media. -->
-    <string name="db_default_journal_mode" translatable="false">MEMORY</string>
+  <!--
+    Vibration
+  -->
 
-    <!-- The database synchronization mode when using the default journal mode.
-         FULL is safest and preserves durability at the cost of extra fsyncs.
-         NORMAL also preserves durability in non-WAL modes and uses checksums to ensure
-         integrity although there is a small chance that an error might go unnoticed.
-         Choices are: FULL, NORMAL, OFF. -->
-    <string name="db_default_sync_mode" translatable="false">OFF</string>
+  <!-- Vibrator pattern for feedback about a long screen/key press -->
+  <integer-array name="config_longPressVibePattern">
+    <item>7</item>
+  </integer-array>
 
-    <!-- The database synchronization mode when using Write-Ahead Logging.
-         FULL is safest and preserves durability at the cost of extra fsyncs.
-         NORMAL sacrifices durability in WAL mode because syncs are only performed before
-         and after checkpoint operations.  If checkpoints are infrequent and power loss
-         occurs, then committed transactions could be lost and applications might break.
-         Choices are: FULL, NORMAL, OFF. -->
-    <string name="db_wal_sync_mode" translatable="false">OFF</string>
+  <!-- Vibrator pattern for feedback about touching a virtual key -->
+  <integer-array name="config_virtualKeyVibePattern">
+    <item>7</item>
+  </integer-array>
 
-    <!-- Indicate whether to allow the device to suspend when the screen is off
-         due to the proximity sensor.  This resource should only be set to true
-         if the sensor HAL correctly handles the proximity sensor as a wake-up source.
-         Otherwise, the device may fail to wake out of suspend reliably.
-         The default is false. -->
-    <bool name="config_suspendWhenScreenOffDueToProximity">true</bool>
+  <!-- Vibrator pattern for a very short but reliable vibration for soft keyboard tap -->
+  <integer-array name="config_keyboardTapVibePattern">
+    <item>7</item>
+  </integer-array>
 
-    <!-- Boolean indicating whether a vendor mismatch should warning should be displayed -->
-    <bool name="config_show_vendor_mismatch_message">false</bool>
+  <!--
+    WiFi
+  -->
+
+  <!-- Whether WiFi display is supported by this device.
+    There are many prerequisites for this feature to work correctly.
+    Here are a few of them:
+    * The WiFi radio must support WiFi P2P.
+    * The WiFi radio must support concurrent connections to the WiFi display and
+    to an access point.
+    * The Audio Flinger audio_policy.conf file must specify a rule for the "r_submix"
+    remote submix module.  This module is used to record and stream system
+    audio output to the WiFi display encoder in the media server.
+    * The remote submix module "audio.r_submix.default" must be installed on the device.
+    * The device must be provisioned with HDCP keys (for protected content).
+  -->
+  <bool name="config_enableWifiDisplay">true</bool>
+
+  <!-- Boolean indicating whether the wifi chipset has dual frequency band support -->
+  <bool translatable="false" name="config_wifi_dual_band_support">true</bool>
+
+  <!-- Wifi driver supports batched scan -->
+  <bool translatable="false" name="config_wifi_batched_scan_supported">true</bool>
+
+  <!-- Boolean indicating whether the wifi chipset has background scan support -->
+  <bool translatable="false" name="config_wifi_background_scan_support">true</bool>
+
+  <!-- Idle Receive current for wifi radio. 0 by default-->
+  <integer name="config_wifi_idle_receive_cur_ma">1</integer>
+
+  <!-- Rx current for wifi radio. 0 by default-->
+  <integer name="config_wifi_active_rx_cur_ma">65</integer>
+
+  <!-- Tx current for wifi radio. 0 by default-->
+  <integer name="config_wifi_tx_cur_ma">265</integer>
+
+  <!-- Operating volatage for wifi radio. 0 by default-->
+  <integer name="config_wifi_operating_voltage_mv">3600</integer>
 </resources>
