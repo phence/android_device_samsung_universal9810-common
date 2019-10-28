@@ -9,6 +9,8 @@ VENDOR=samsung
 DEVICE_COMMON=universal9810-common
 DEVICE="crownlte star2lte starlte"
 
+INITIAL_COPYRIGHT_YEAR=2019
+
 # Load extractutils and do some sanity checks
 MY_DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "$MY_DIR" ]]; then MY_DIR="$PWD"; fi
@@ -30,9 +32,6 @@ write_headers "$DEVICE"
 
 # The standard blobs
 write_makefiles "$MY_DIR"/proprietary-files.txt true
-
-# Offline charging
-write_makefiles "$MY_DIR"/proprietary-files-lpm.txt true
 
 # We are done!
 write_footers
